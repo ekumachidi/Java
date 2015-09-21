@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class FigureInWord {
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		FigureInWord fiw = new FigureInWord();
+		System.out.print("Enter a number to convert to words (or 'done' to quit):");
+		String input = in.nextLine();
+		while (!input.equals("done")) {
+			try {
+	    		int inpt =Integer.parseInt(input);
+	    		System.out.print("The value is :" + convert(inpt));
+	    		System.out.println();
+	    		System.out.print("Enter a number to convert to words (or 'done' to quit):");
+	    		input = in.nextLine();
+//	    		System.out.print("The value is :" + convert(inpt));
+			} catch (Exception e) {
+				System.out.println("You entered a wrong value.");
+			}
+		}
+		System.out.println("Thank you for using our service.");
+	}
+	//Array Declarations for public
+	public static String[] zero_to_nineteen = {"Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"};
+	public static String[] tens = {"","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"};
+	//Morse code. Program kernel
+	public static String convert(int i) {
+		String sign = "Negative";
+		boolean bool =false;
+		String output;
+		if( i < 0) i*=-1;
+		do {
+			if( i < 20)  output= zero_to_nineteen[i];
+			if( i < 100) output=tens[i/10] + ((i % 10 > 0)? " " + convert(i % 10):"");
+			if( i < 1000) output= zero_to_nineteen[i/100] + " Hundred" + ((i % 100 > 0)?" and " + convert(i % 100):"");
+			if( i < 1000000) output=convert(i / 1000) + " Thousand " + ((i % 1000 > 0)? " " + convert(i % 1000):"") ;
+	        if(i<1000000000) output=convert(i / 1000000) + " Million " + ((i % 1000000 > 0)? " " + convert(i % 1000000):"") ;
+	        output=convert(i / 1000000000) + " Billion " + ((i % 1000000000 > 0)? " " + convert(i % 1000000000):"") ;
+		} while (i>0);	
+		return sign+output;
+	}	
+}
