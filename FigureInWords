@@ -1,0 +1,117 @@
+import java.util.Scanner;
+
+public class FigureInWords {
+	String string;
+	String[] units = {"","One", "Two", "Three", "Four", "Five", "Six", "Seven","Eight","Nine"};
+	String[] teens ={"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen","Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+	String[] tens = {"Twenty", "Thirty", "Fourty", "Fifty", "Sixty","Seventy", "Eighty", "Ninety"};
+	String[] hun = {"hundred", "thousand", "hundred thousand", "million","billion"};
+	String[] zero = {"zero"};
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		FigureInWords m = new FigureInWords();
+		System.out.print("Enter a number to convert to words (or 'done' to quit):"+scan.nextInt());
+		//s = sc.next();
+		//int n = Integer.parseInt(s);
+		int n = scan.nextInt();
+		String inwords = m.convert(n);
+		System.out.println("Value is "+inwords);		       
+	}
+	public String convert(int number) {
+		int n = 1;
+		int mandata;
+		string ="";
+		while(number!=0)
+		{
+			switch (n) {
+			case 1: mandata = number%100;
+			pass(mandata);
+			if (number>100 && number%100!=0) {
+				show("and ");
+			}
+				number/=100;
+				break;
+			case 2:mandata = number%10;
+			if (mandata!=0) {
+				show(" ");
+				 show(hun[0]);
+				 show(" ");
+				 pass(mandata);				
+			} 
+			number/=10;
+			break;
+			case 3:mandata = number%100;
+			if (mandata!=0) {
+				show(" ");
+				 show(hun[1]);
+				 show(" ");
+				 pass(mandata);				
+			} 
+			number/=100;
+			break;
+			case 4:mandata = number%100;
+			if (mandata!=0) {
+				show(" ");
+				 show(hun[2]);
+				 show(" ");
+				 pass(mandata);				
+			} 
+			number/=100;
+			break;
+			case 5:mandata = number%100;
+			if (mandata!=0) {
+				show(" ");
+				 show(hun[2]);
+				 show(" ");
+				 pass(mandata);				
+			} 
+			number/=100;
+			break;
+			case 6:mandata = number%1000;
+			if (mandata>100000) {
+				show(" ");
+				 show(hun[4]);
+				 show(" ");
+				 pass(mandata);				
+			} 
+			number/=1000;
+			break;
+			default:
+				break;
+			}n++;
+		}
+		return string;		
+	}
+	public void pass(int number) {
+		int word, q;
+		if (number==0) {
+			show(zero[0]);
+		}
+		if (number>0 && number < 10) {
+			show(units[number]);
+		}
+		if (number>9 && number<20) {
+			show(teens[number-10]);
+		}
+		if (number>19) {
+			word = number%10;
+			if (word ==0) {
+				q=number/10;
+				show(tens[q-2]);
+			}
+			else {
+				q=number/10;
+				show(units[word]);
+				show(" ");
+				show(tens[q-2]);
+			}
+		}
+	}
+	private void show(String s) {
+		String st;
+		st = string;		
+		string = s;
+		string+=st;
+	}
+}
